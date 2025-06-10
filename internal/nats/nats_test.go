@@ -3,13 +3,14 @@ package nats
 import (
 	"context"
 	"encoding/json"
-	"github.com/Av1shay/nats-scaler/internal/errs"
-	"github.com/stretchr/testify/require"
 	"net/http"
 	"net/http/httptest"
 	"net/url"
 	"testing"
 	"time"
+
+	"github.com/Av1shay/nats-scaler/internal/errs"
+	"github.com/stretchr/testify/require"
 )
 
 type mockNatsServer struct {
@@ -63,14 +64,14 @@ func TestService_GetPendingMessages(t *testing.T) {
 	require.Equal(t, 250, res)
 	require.Equal(t, url.Values{"acc": {"$G"}, "consumers": {"1"}, "leader_only": {"1"}}, natsServer.gotQueryParams)
 
-	res, err = s.GetPendingMessages(ctx, ts.URL, "NOT-EXIST", "xxx")
+	_, err = s.GetPendingMessages(ctx, ts.URL, "NOT-EXIST", "xxx")
 	require.ErrorContains(t, err, "couldn't find NATS account")
 
 	natsServer.resp = struct {
 		AccountDetails []AccountDetails `json:"account_details"`
 	}{AccountDetails: nil}
-	res, err = s.GetPendingMessages(ctx, ts.URL, "EVENTS", "xxx")
-	require.ErrorIs(t, err, NoAccountFoundErr)
+	_, err = s.GetPendingMessages(ctx, ts.URL, "EVENTS", "xxx")
+	require.ErrorIs(t, err, ErrNoAccountFound)
 
 	natsServer.statusCode = 500
 	res, err = s.GetPendingMessages(ctx, ts.URL, "EVENTS", "xxx")

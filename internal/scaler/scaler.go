@@ -3,13 +3,14 @@ package scaler
 import (
 	"context"
 	"fmt"
+	"sync"
+	"time"
+
 	internalTypes "github.com/Av1shay/nats-scaler/internal/types"
 	appsv1 "k8s.io/api/apps/v1"
 	"k8s.io/apimachinery/pkg/types"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	logf "sigs.k8s.io/controller-runtime/pkg/log"
-	"sync"
-	"time"
 )
 
 const (

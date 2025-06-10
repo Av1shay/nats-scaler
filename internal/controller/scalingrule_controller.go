@@ -19,6 +19,8 @@ package controller
 import (
 	"context"
 	"fmt"
+	"time"
+
 	scalingv1 "github.com/Av1shay/nats-scaler/api/v1"
 	"github.com/Av1shay/nats-scaler/internal/nats"
 	internalTypes "github.com/Av1shay/nats-scaler/internal/types"
@@ -27,7 +29,6 @@ import (
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	logf "sigs.k8s.io/controller-runtime/pkg/log"
-	"time"
 )
 
 const (
@@ -37,7 +38,7 @@ const (
 )
 
 type Scaler interface {
-	ReconcileScale(ctx context.Context, client client.Client, nn types.NamespacedName, spec internalTypes.ScalerParams, pendings int) error
+	ReconcileScale(ctx context.Context, k8s client.Client, nn types.NamespacedName, spec internalTypes.ScalerParams, pendings int) error
 }
 
 // ScalingRuleReconciler reconciles a ScalingRule object

@@ -65,7 +65,9 @@ make deploy IMG=nats-scaler:dev
 The ScalingRule CR defines how the operator reacts to NATS JetStream metrics.
 
 To apply a sample:
-`kubectl apply -f config/samples/scalingrule_v1alpha1_scalingrule.yaml`
+```sh
+kubectl apply -f config/samples/scalingrule_v1alpha1_scalingrule.yaml
+```
 Example:
 ```yaml
 apiVersion: scaling.my.domain/v1
@@ -88,7 +90,10 @@ spec:
   pollIntervalSeconds: 10
   ```
 
-* To apply a dummy deployment just for testing: `kubectl apply -f test/fixtures/deploy.yaml`
+* To apply a dummy deployment just for testing: 
+```sh
+kubectl apply -f test/fixtures/deploy.yaml`
+```
 
 
 ## Tests
@@ -99,6 +104,10 @@ make docker-test
 Or to run locally:
 ```sh
 make test
+```
+E2E to test:
+```sh
+make test-e2e
 ```
 
 ### To Uninstall

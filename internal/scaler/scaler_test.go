@@ -2,6 +2,8 @@ package scaler
 
 import (
 	"context"
+	"testing"
+
 	internalTypes "github.com/Av1shay/nats-scaler/internal/types"
 	testutils "github.com/Av1shay/nats-scaler/test/utils"
 	"github.com/go-logr/logr"
@@ -11,7 +13,6 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/types"
 	"sigs.k8s.io/controller-runtime/pkg/client/fake"
-	"testing"
 )
 
 func TestRealScaler_ReconcileScale(t *testing.T) {

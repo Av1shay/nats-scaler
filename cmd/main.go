@@ -19,11 +19,12 @@ package main
 import (
 	"crypto/tls"
 	"flag"
-	"github.com/Av1shay/nats-scaler/internal/scaler"
 	"net/http"
 	"os"
 	"path/filepath"
 	"time"
+
+	"github.com/Av1shay/nats-scaler/internal/scaler"
 
 	"github.com/Av1shay/nats-scaler/internal/nats"
 

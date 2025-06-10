@@ -20,6 +20,10 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"net/http"
+	"net/http/httptest"
+	"time"
+
 	"github.com/Av1shay/nats-scaler/internal/errs"
 	"github.com/Av1shay/nats-scaler/internal/nats"
 	testutils "github.com/Av1shay/nats-scaler/test/utils"
@@ -29,10 +33,7 @@ import (
 	k8serrs "k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/types"
-	"net/http"
-	"net/http/httptest"
 	"sigs.k8s.io/controller-runtime/pkg/reconcile"
-	"time"
 
 	scalingv1 "github.com/Av1shay/nats-scaler/api/v1"
 )

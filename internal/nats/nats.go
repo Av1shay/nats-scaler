@@ -5,18 +5,21 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/Av1shay/nats-scaler/internal/errs"
 	"io"
 	"net/http"
 	"net/url"
 	"strings"
+
+	logf "sigs.k8s.io/controller-runtime/pkg/log"
+
+	"github.com/Av1shay/nats-scaler/internal/errs"
 )
 
 const (
 	GlobalAccountName = "$G" // we'll use only the global account for the sake of the demo
 )
 
-var NoAccountFoundErr = errors.New("no accounts found")
+var ErrNoAccountFound = errors.New("no accounts found")
 
 type Service struct {
 	httpClient *http.Client
@@ -34,6 +37,7 @@ func (c *Service) GetPendingMessages(ctx context.Context, baseURL, streamName, c
 	// which communicates over NATS using the JetStream wire protocol:
 	// https://docs.nats.io/reference/reference-protocols/nats_api_reference
 
+	logger := logf.FromContext(ctx)
 	v := url.Values{}
 	v.Add("acc", GlobalAccountName)
 	v.Add("consumers", "1")
@@ -47,7 +51,11 @@ func (c *Service) GetPendingMessages(ctx context.Context, baseURL, streamName, c
 	if err != nil {
 		return 0, fmt.Errorf("failed to query nats subscriptions: %w", err)
 	}
-	defer resp.Body.Close()
+	defer func() {
+		if err := resp.Body.Close(); err != nil {
+			logger.Error(err, "failed to close response body")
+		}
+	}()
 
 	if resp.StatusCode != http.StatusOK {
 		b, _ := io.ReadAll(resp.Body)
@@ -63,7 +71,7 @@ func (c *Service) GetPendingMessages(ctx context.Context, baseURL, streamName, c
 	}
 
 	if len(data.AccountDetails) == 0 {
-		return 0, NoAccountFoundErr
+		return 0, ErrNoAccountFound
 	}
 
 	// assuming we only have one account, we can just look at the first one (that supposes to be $G)

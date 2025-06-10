@@ -19,13 +19,14 @@ package controller
 import (
 	"context"
 	"encoding/json"
-	"github.com/Av1shay/nats-scaler/internal/nats"
-	internalTypes "github.com/Av1shay/nats-scaler/internal/types"
-	"k8s.io/apimachinery/pkg/types"
 	"net/http"
 	"os"
 	"path/filepath"
 	"testing"
+
+	"github.com/Av1shay/nats-scaler/internal/nats"
+	internalTypes "github.com/Av1shay/nats-scaler/internal/types"
+	"k8s.io/apimachinery/pkg/types"
 
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
