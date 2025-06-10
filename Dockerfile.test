@@ -1,0 +1,24 @@
+FROM golang:1.24
+
+WORKDIR /app
+
+RUN apt-get update && apt-get install -y make git
+
+COPY go.mod go.sum ./
+RUN go mod download
+
+COPY . .
+
+RUN go install sigs.k8s.io/controller-tools/cmd/controller-gen@v0.18.0 && \
+    go install sigs.k8s.io/controller-runtime/tools/setup-envtest@release-0.21 && \
+    mkdir -p /go/bin/linux_arm64 && \
+    cp /go/bin/controller-gen /go/bin/linux_arm64/controller-gen && \
+    cp /go/bin/setup-envtest /go/bin/linux_arm64/setup-envtest
+
+ENV PATH=$PATH:/go/bin
+
+RUN setup-envtest use 1.31 --bin-dir /usr/local/kubebuilder/bin
+
+ENV KUBEBUILDER_ASSETS=/usr/local/kubebuilder/bin
+
+RUN make test

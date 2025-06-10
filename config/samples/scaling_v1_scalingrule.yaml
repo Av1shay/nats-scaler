@@ -1,0 +1,18 @@
+apiVersion: scaling.my.domain/v1
+kind: ScalingRule
+metadata:
+  labels:
+    app.kubernetes.io/name: nats-scaler
+    app.kubernetes.io/managed-by: kustomize
+  name: scalingrule-sample
+spec:
+  deploymentName: myapp
+  namespace: default
+  minReplicas: 1
+  maxReplicas: 5
+  natsMonitoringURL: http://localhost:8222
+  streamName: ORDERS
+  consumerName: orders-consumer
+  scaleUpThreshold: 10
+  scaleDownThreshold: 3
+  pollIntervalSeconds: 10
