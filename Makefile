@@ -232,8 +232,7 @@ define go-install-tool
   echo "Downloading $${package}" ;\
   rm -f $(1) || true ;\
   bin_name=$$(basename $(1)) ;\
-  arch_dir=$$(go env GOOS)_$$(go env GOARCH) ;\
-  bin_path=$$(go env GOPATH)/bin/$$arch_dir/$$bin_name ;\
+  bin_path=$$(go env GOPATH)/bin/$$bin_name ;\
   go install $${package} ;\
   mv $$bin_path $(1)-$(3) ;\
 } ;\
