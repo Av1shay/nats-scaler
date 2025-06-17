@@ -24,7 +24,8 @@ import (
 	"net/http/httptest"
 	"time"
 
-	"github.com/Av1shay/nats-scaler/internal/errs"
+	"github.com/Av1shay/nats-scaler/pkg/errs"
+
 	"github.com/Av1shay/nats-scaler/internal/nats"
 	testutils "github.com/Av1shay/nats-scaler/test/utils"
 	"github.com/go-logr/logr"

@@ -10,9 +10,9 @@ import (
 	"net/url"
 	"strings"
 
-	logf "sigs.k8s.io/controller-runtime/pkg/log"
+	"github.com/Av1shay/nats-scaler/pkg/errs"
 
-	"github.com/Av1shay/nats-scaler/internal/errs"
+	logf "sigs.k8s.io/controller-runtime/pkg/log"
 )
 
 const (
