@@ -9,7 +9,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Av1shay/nats-scaler/pkg/errs"
+	"github.com/Av1shay/nats-scaler/internal/errs"
 
 	"github.com/stretchr/testify/require"
 )
